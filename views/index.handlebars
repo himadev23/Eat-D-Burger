@@ -1,10 +1,24 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>burger</title>
-</head>
-<body>
+
 <h1>Burger</h1>
+<div class='eat-burger'>
+	{{#each burgers}}
+	{{#unless devoured}}
+	
+	<p> {{this.id}}.{{this.burger_name}}</p>
+	<button class='eat-burger-button' data-id='{{this.id}}'>devoured </button>
+	{{/unless}}
+	{{/each}}
+	<p>*************************</p>
+</div>
+<div class='make-burger'>
+	<h1>eaten burgers</h1>
+	{{#each burgers}}
+	{{#if devoured}}
+	<p>{{burger_name}}</p>
+	{{/if}}
+	{{/each}}
+</div>
+
 <form class="create-form">
 
   <div class="form-group">
@@ -14,32 +28,5 @@
 	<button type="submit">Add Burger</button>
 </form>
 
-<script type="text/javascript">
-	$(".create-form").on("submit", function(event) {
-    
-    event.preventDefault();
-
-    var newBurger =  {
-      burgerName: $("#burger-name").val().trim()}
-
-    console.log(newBurger);
-    
-
-    // Send the POST request.
-    $.ajax("/api/burger", {
-      type: "POST",
-      data: newBurger
-    }).then(
-      function() {
-        console.log("created new Burger");
-        // Reload the page to get the updated list
-        location.reload();
-      }
-    );
-  });
-
-</script>
 
 
-</body>
-</html>
